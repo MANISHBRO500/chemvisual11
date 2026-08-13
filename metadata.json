@@ -1,0 +1,6 @@
+{
+  "name": "ChemVisual 11",
+  "description": "Class 11 Inorganic Chemistry Interactive Diagram Lab, 3D Molecular & Orbital Visualizer, VSEPR & Hybridisation Simulator for CBSE and JEE Main/Advanced.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
