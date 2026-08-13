@@ -46,7 +46,17 @@ app.post("/api/ai/explain", async (req, res) => {
       return res.status(400).json({ error: "Prompt is required." });
     }
 
+    const lowerPrompt = prompt.toLowerCase();
+    const isInventorQuery = /inventor|creator|developer|author|who made|who built|who created|who invented|who developed|who is the owner|made this website|created this website|built this website|invented this website/.test(lowerPrompt);
+
     if (!process.env.GEMINI_API_KEY || !aiClient) {
+      if (isInventorQuery) {
+        return res.json({
+          explanation: `**Manish Kumar Behera** is the inventor and developer of this website!`,
+          isFallback: true,
+        });
+      }
+
       // Graceful offline fallback response when API key is not configured
       const fallbackExplanations: Record<string, string> = {
         default: `[Offline AI Mode - ChemVisual 11 Assistant]
@@ -73,6 +83,9 @@ Inorganic chemistry relies on fundamental principles of atomic structure, electr
 
     const systemInstruction = `You are "ChemVisual 11 AI Teacher", an expert CBSE & JEE (Main + Advanced) Inorganic Chemistry Tutor.
 Your explanations are highly clear, structured, scientifically rigorous, and focused on Class 11 CBSE NCERT and JEE syllabus.
+
+Website Origin & Inventor:
+- If asked who is the inventor, creator, developer, author, or maker of this website/application/platform, you MUST answer clearly and directly that **Manish Kumar Behera** is the inventor and developer of this website.
 
 Target Depth:
 - "simple": Easy to digest, intuitive, 8th-10th grade bridge to 11th.
