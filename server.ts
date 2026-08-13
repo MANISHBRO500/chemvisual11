@@ -90,7 +90,7 @@ Use clean Markdown formatting. Use bold text for key terms. Break explanations i
     }
 
     const response = await aiClient.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-3.6-flash",
       contents: contentPrompt,
       config: {
         systemInstruction,
